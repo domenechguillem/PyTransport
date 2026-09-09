@@ -20,10 +20,10 @@
 #include "numpy/arrayobject.h"
 
 //don't adjust the labels at the end of the 4 lines below (they are used to fix directory structure)
-#include"/nethome/ronayne/Documents/PyTransport-master/PyTransport/CppTrans/NC/evolve.h"//evolve
-#include"/nethome/ronayne/Documents/PyTransport-master/PyTransport/CppTrans/NC/moments.h"//moments
-#include"/nethome/ronayne/Documents/PyTransport-master/PyTransport/CppTrans/NC/model.h"//model
-#include"/nethome/ronayne/Documents/PyTransport-master/PyTransport/CppTrans/stepper/rkf45.hpp"//stepper
+#include"/Users/guillemdomenech/Documents/GitHub/PyTransport/PyTransport/CppTrans/evolve.h"//evolve
+#include"/Users/guillemdomenech/Documents/GitHub/PyTransport/PyTransport/CppTrans/moments.h"//moments
+#include"/Users/guillemdomenech/Documents/GitHub/PyTransport/PyTransport/CppTrans/model.h"//model
+#include"/Users/guillemdomenech/Documents/GitHub/PyTransport/PyTransport/CppTrans/stepper/rkf45.hpp"//stepper
 //************************************************************************************************* 
 
 #include <math.h>
@@ -38,7 +38,7 @@
 using namespace std;
 
 // The line below is updated evey time the moduleSetup file is run.
-// Package recompile attempted at: Wed Apr 24 14:30:20 2019
+// Package recompile attempted at: Mon Jul 24 09:54:20 2023
 
 
 // Changes python array into C array (or rather points to pyarray data)
@@ -677,7 +677,7 @@ static char PyTrans_docs[] =
 "This is PyTrans, a package for solving the moment transport equations of inflationary cosmology\n";
 
 // **************************************************************************************
-static PyMethodDef PyTransDQuadNC_funcs[] = {{"H", (PyCFunction)MT_H,    METH_VARARGS, PyTrans_docs},{"Ep", (PyCFunction)MT_Ep,    METH_VARARGS, PyTrans_docs},{"nF", (PyCFunction)MT_fieldNumber,        METH_VARARGS, PyTrans_docs},{"nP", (PyCFunction)MT_paramNumber,        METH_VARARGS, PyTrans_docs},{"V", (PyCFunction)MT_V,            METH_VARARGS, PyTrans_docs},{"dV", (PyCFunction)MT_dV,                METH_VARARGS, PyTrans_docs},  {"ddV", (PyCFunction)MT_ddV,                METH_VARARGS, PyTrans_docs},  {"backEvolve", (PyCFunction)MT_backEvolve,        METH_VARARGS, PyTrans_docs},  {"sigEvolve", (PyCFunction)MT_sigEvolve,        METH_VARARGS, PyTrans_docs},  {"gamEvolve", (PyCFunction)MT_gamEvolve,        METH_VARARGS, PyTrans_docs},    {"alphaEvolve", (PyCFunction)MT_alphaEvolve,        METH_VARARGS, PyTrans_docs},    {NULL}};//FuncDef
+static PyMethodDef PyTransStep_methods[] = {{"H", (PyCFunction)MT_H,    METH_VARARGS, PyTrans_docs},{"Ep", (PyCFunction)MT_Ep,    METH_VARARGS, PyTrans_docs},{"nF", (PyCFunction)MT_fieldNumber,        METH_VARARGS, PyTrans_docs},{"nP", (PyCFunction)MT_paramNumber,        METH_VARARGS, PyTrans_docs},{"V", (PyCFunction)MT_V,            METH_VARARGS, PyTrans_docs},{"dV", (PyCFunction)MT_dV,                METH_VARARGS, PyTrans_docs},  {"ddV", (PyCFunction)MT_ddV,                METH_VARARGS, PyTrans_docs},  {"backEvolve", (PyCFunction)MT_backEvolve,        METH_VARARGS, PyTrans_docs},  {"sigEvolve", (PyCFunction)MT_sigEvolve,        METH_VARARGS, PyTrans_docs},  {"gamEvolve", (PyCFunction)MT_gamEvolve,        METH_VARARGS, PyTrans_docs},    {"alphaEvolve", (PyCFunction)MT_alphaEvolve,        METH_VARARGS, PyTrans_docs},   {NULL, NULL, 0, NULL}};//FuncDef
 // do not alter the comment at the end of preceeding line -- it is used by preprocessor
 
 #ifdef __cplusplus
@@ -685,11 +685,11 @@ extern "C" {
 #endif
 
 // **************************************************************************************    
-     //modDef
+static struct PyModuleDef PyTransModule = {PyModuleDef_HEAD_INIT, "PyTransStep", PyTrans_docs, -1, PyTransStep_methods}; //modDef
 // do not alter the comment at the end of preceeding line -- it is used by preprocessor
     
 // **************************************************************************************
-void initPyTransDQuadNC(void)    {        Py_InitModule3("PyTransDQuadNC", PyTransDQuadNC_funcs,                       "Extension module for inflationary statistics");        import_array();   }//initFunc
+PyMODINIT_FUNC PyInit_PyTransStep(void)    {    PyObject *m = PyModule_Create(&PyTransModule); import_array(); return m;} //initFunc
 // do not alter the comment at the end of preceeding line -- it is used by preprocessor
 
 #ifdef __cplusplus
